@@ -22,19 +22,11 @@ pageEncoding="UTF-8"%>
     <!-- change to match your file/naming structure -->
   </head>
   <body>
-    <h1>New Dojo:></h1>
-    <!--- inside the form:form --->
-        <!--- Drop down select menu --->
-        <form:select path="person">
-            <c:forEach var="onePerson" items="${persons}">
-                <!--- Each option VALUE is the id of the person --->
-                <form:option value="${onePerson.id}" path="person">
-                <!--- This is what shows to the user as the option --->
-                    <c:out value="${onePerson.firstName}"/>
-                    <c:out value="${onePerson.lastName}"/>
-                </form:option>
-            </c:forEach>
-        </form:select>
-    <!--- ... --->
+    <h1>New Dojo</h1>
+    <form:form action="/dojos" method="post" modelAttribute="dojo">
+      <form:label path="name">name</form:label>
+      <form:input path="name"></form:input>
+      <input type="submit" value="create dojo">
+    </form:form>
   </body>
 </html>

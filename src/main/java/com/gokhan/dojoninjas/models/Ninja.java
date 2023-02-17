@@ -12,25 +12,45 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="ninjas")
 public class Ninja {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private int age;
-    @Column(updatable=false)
-    private Date createdAt;
-    private Date updatedAt;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="dojo_id")
-    private Dojo dojo;
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+  private Long id;
+  private String firstName;
+  private String lastName;
+  private Integer age;
+
+  @Column(updatable=false)
+  @DateTimeFormat(pattern="yyy-MM-dd")
+  private Date createdAt;
+  @DateTimeFormat(pattern="yyy-MM-dd")
+  private Date updatedAt;
+
+  @ManyToOne(fetch=FetchType.LAZY)
+  @JoinColumn(name="dojo_id")
+  private Dojo dojo;
+
+  public Ninja(){
     
-    public Ninja() {
-        
-    }
+  }
+
+  public Ninja(Long id, String firstName, String lastName, Integer age, Date createdAt, Date updatedAt, Dojo dojo) {
+    this.id = id;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.dojo = dojo;
+  }
+  
+
 
   public Long getId() {
     return this.id;
@@ -56,11 +76,11 @@ public class Ninja {
     this.lastName = lastName;
   }
 
-  public int getAge() {
+  public Integer getAge() {
     return this.age;
   }
 
-  public void setAge(int age) {
+  public void setAge(Integer age) {
     this.age = age;
   }
 
@@ -87,5 +107,6 @@ public class Ninja {
   public void setDojo(Dojo dojo) {
     this.dojo = dojo;
   }
+  
 }
 

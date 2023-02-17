@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 // ...
 @Entity
 @Table(name="dojos")
@@ -21,15 +23,28 @@ public class Dojo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
     @Column(updatable=false)
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createdAt;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;
+
     @OneToMany(mappedBy="dojo", fetch = FetchType.LAZY)
     private List<Ninja> ninjas;
-    
+
+
     public Dojo() {
-        
     }
+
+    public Dojo(Long id, String name, Date createdAt, Date updatedAt, List<Ninja> ninjas) {
+        this.id = id;
+        this.name = name;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.ninjas = ninjas;
+    }
+
 
     public Long getId() {
         return this.id;
@@ -70,6 +85,8 @@ public class Dojo {
     public void setNinjas(List<Ninja> ninjas) {
         this.ninjas = ninjas;
     }
+
+
 }
 
 
